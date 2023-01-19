@@ -41,6 +41,7 @@ public class JwtAuthController {
      * WebSecurityConfig - no método 'configure'
      * application.properties - na propriedade 'jwt.get.token.uri'
      */
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getSenha());

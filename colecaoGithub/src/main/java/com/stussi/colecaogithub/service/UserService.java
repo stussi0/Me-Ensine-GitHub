@@ -45,8 +45,8 @@ public class UserService {
         if (users == null){
             users = new ArrayList<>();
             com.stussi.colecaogithub.model.agente.User usuario = new com.stussi.colecaogithub.model.agente.User();
-            usuario.setEmail("stussi@gerprov.com");
-            usuario.setSenha("$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+            usuario.setEmail("luis@unigran.br");
+            usuario.setSenha("$2a$10$uxzjpWQidv5P31B76d37eeaLmP3fwIqH.A0U83l1YVzj2w9PbWuc6");
             users.add(usuario);
         }
         users.add(user);
@@ -62,8 +62,8 @@ public class UserService {
         if (users == null){
             users = new ArrayList<>();
             com.stussi.colecaogithub.model.agente.User usuario = new com.stussi.colecaogithub.model.agente.User();
-            usuario.setEmail("stussi@gerprov.com");
-            usuario.setSenha("$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+            usuario.setEmail("luis@unigran.br");
+            usuario.setSenha("$2a$10$uxzjpWQidv5P31B76d37eeaLmP3fwIqH.A0U83l1YVzj2w9PbWuc6");
             users.add(usuario);
         }
         if (users != null) {

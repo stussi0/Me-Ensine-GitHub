@@ -55,8 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers(
                         "/auth", // Request de autenticação
                         "/users", // Request de criação de usuário
-                        "/hello", // Request de criação de usuário
-                        "/dia", // Request de criação de usuário
+                       // "/autenticado",
                         "/"
                 ).permitAll().
                 // todas as outras requests precisam ser autenticadas

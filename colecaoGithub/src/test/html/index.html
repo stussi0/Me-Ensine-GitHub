@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var servidor = "https://fe4e-200-199-220-74.ngrok.io";
+        function test(){
+            console.log("Oi mundo");
+        }
+    </script>
+</head>
+<body>
+    <div id="teste_api_div" class="login_form">
+        <h3>Teste da API</h3>
+        <button onclick="testeapi()">testar</button>
+        <button onclick="testesubpasta()">testar</button>
+        <button onclick="eficazTeste()">testar</button>
+        <script>
+            function testeapi() {
+
+                console.log("Teste da API!");
+
+                fetch(servidor+"/",{
+                    method: "GET",
+                    headers: {
+                        'Access-Control-Allow-Origin':'*',
+                        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+                        "Access-Control-Allow-Headers": "Authorization", 
+                    }
+                })
+                .then(function(res){return res.json(); })
+                .then(function(data){
+                    console.log("teste com sucesso: "+JSON.stringify(data));
+                });
+            }
+            function testesubpasta() {
+
+                console.log("Teste da API - Authenticate!");
+
+                fetch(servidor+"/sub/test",{
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type":"application/json",
+                        'Access-Control-Allow-Origin':'*',
+                        "Access-Control-Allow-Headers": "Authorization", 
+                        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+                        'Authorization':"Bearer "+localStorage.getItem('entrada'),
+                    }
+                })
+                .then(function(res){return res; })
+                .then(function(data){
+                    console.log("teste com sucesso: "+JSON.stringify(data));
+                });
+            }
+            function eficazTeste() {
+                
+
+                console.log("Testando Novamente");
+
+
+                fetch(servidor+"/",{
+                    method: "GET",
+                    headers: {
+                        'Access-Control-Allow-Origin':'*',
+                        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE" ,
+                    },
+                    body: null
+                })
+                .then(function(res){return res.json(); })
+                .then(function(data){
+                    console.log(data);
+                    console.log("Testado");
+                });
+            }
+        </script>
+    </div>
+    <div id="teste_auth_div" class="login_form">
+        <h3>Teste da Authentication</h3>
+        <button onclick="testeauth()">testar</button>
+        <script>
+            function testeauth() {
+
+                console.log("Teste da API!");
+
+                fetch(servidor+"/autenticado",{
+                    method: "GET",
+                    headers: {
+                        'Accept': '*/*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Origin':'*',
+                        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin, Authorization', 
+                        'Access-Control-Allow-Methods': '*' ,
+                        'Access-Control-Allow-Credentials': true,
+                        'Authorization':"Bearer "+localStorage.getItem('entrada'),
+                    },
+                })
+                .then(function(res){return res; })
+                .then(function(data){
+                    console.log("teste com sucesso: "+JSON.stringify(data));
+                });
+            }
+            
+        </script>
+    </div>
+    <div id="teste_axios_auth_div" class="login_form">
+        <h3>Teste da Authentication com Axios</h3>
+        <button onclick="testeaxiosauth()">testar</button>
+        <script>
+            function testeaxiosauth() {
+
+                console.log("Teste Axios da API!");
+
+                axios.get(+servidor+"/autenticado",{
+                    headers: {
+                        'Accept': '*/*',
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Origin':'*',
+                        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin, Authorization', 
+                        'Access-Control-Allow-Methods': '*' ,
+                        'Authorization':`Bearer ${localStorage.getItem('entrada')}`,
+                    },
+                    referrerPolicy: "strict-origin-when-cross-origin",
+                })
+                .then(function(res){return res; })
+                .then(function(data){
+                    console.log("teste com sucesso: "+JSON.stringify(data));
+                });
+            }
+            
+        </script>
+    </div>
+    <div id="login_div" class="login_form">
+        <h3>Login</h3>
+        <label for="email_in">e-mail</label><br>
+        <input type="email" name="email_input" id="email_in"><br>
+        <label for="senha_in">senha</label><br>
+        <input type="password" name="senha_input" id="senha_in"><br>
+        <button onclick="fazlogin()">login</button>
+        <script>
+            function fazlogin() {
+                var email = document.getElementById("email_in").value;
+                var senha = document.getElementById("senha_in").value;
+                
+                var payload = {
+                    email: email,
+                    senha: senha
+                };
+
+                console.log(JSON.stringify(payload));
+
+
+                fetch(servidor+"/auth",{
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type":"application/json",
+                        'Access-Control-Allow-Origin':'*',
+                        "Access-Control-Allow-Headers": "Authorization", 
+                        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE" ,
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(function(res){return res.json(); })
+                .then(function(data){
+                    localStorage.setItem('entrada',data.token);
+                    console.log("autenticado");
+                });
+            }
+            
+        </script>
+    </div>
+    <div id="usuario_div" class="usuario_form">
+        <h3>Adicionar Usuário</h3>
+        <label for="email_in_cria">e-mail</label><br>
+        <input type="email" name="email_in_criaput" id="email_in_cria"><br>
+        <label for="senha_cria_in">senha</label><br>
+        <input type="password" name="senha_cria_input" id="senha_cria_in"><br>
+        <button onclick="criarUsuario()">criar</button>
+        <script>
+            function criarUsuario() {
+                var email_c = document.getElementById("email_in_cria").value;
+                var senha_c = document.getElementById("senha_cria_in").value;
+                
+                var payload_cria = {
+                    email: email_c,
+                    senha: senha_c
+                };
+
+                console.log(JSON.stringify(payload_cria));
+
+
+                fetch(servidor+"/users",{
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type":"application/json",
+                        'Access-Control-Allow-Origin':'*',
+                        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE" ,
+                    },
+                    body: JSON.stringify(payload_cria)
+                })
+                .then(function(res){return res.json(); })
+                .then(function(data){
+                    localStorage.setItem('entrada',data.token);
+                    console.log("user criado");
+                });
+            }
+            
+        </script>
+    </div>
+</body>
+</html>

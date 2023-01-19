@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,18 +19,45 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class PrincipalController {
+    @CrossOrigin(origins = "*")
     @GetMapping(value="/", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String index() {
-        return "Olá Mundo!!!";
-    }
-
-    @GetMapping(value="/hello", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String generalKenobi() {
-        return "Hello there!";
+    public ResponseEntity<String> index() {
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        
+        JSONObject jsonAccountReturn = new JSONObject();
+        jsonAccountReturn.put("msg", "Ok!");
+        
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(jsonAccountReturn.toString());
     }
     
+    @CrossOrigin(origins = "*")
+    @GetMapping(value="/autenticado", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> testAutenticado() {
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        
+        JSONObject jsonAccountReturn = new JSONObject();
+        jsonAccountReturn.put("msg", "Ok!");
+        
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(jsonAccountReturn.toString());
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value="/hello", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<Object> generalKenobi() {
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        
+        JSONObject jsonAccountReturn = new JSONObject();
+        jsonAccountReturn.put("msg", "Olá Mundo!");
+        
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(jsonAccountReturn.toString());
+    }
+    
+    @CrossOrigin(origins = "*")
     @GetMapping(value="/dia")
-    public ResponseEntity<Object> testJson() {
+    public ResponseEntity<?> testJson() {
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         
@@ -41,8 +69,9 @@ public class PrincipalController {
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(jsonAccountReturn.toString());
     }
     
+    @CrossOrigin(origins = "*")
     @PostMapping(value="/dia")
-    public ResponseEntity<Object> testPostJson() {
+    public ResponseEntity<?> testPostJson() {
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         
@@ -60,6 +89,7 @@ public class PrincipalController {
      * @return um JSON com as informações de peso altura e IMC
      * @throws Exception 
      */
+    @CrossOrigin(origins = "*")
     @GetMapping(value="/imc")
     public ResponseEntity<Object> testRequestJson(@Valid @RequestBody TesteRequest jsonTestString) throws Exception {
         final HttpHeaders httpHeaders = new HttpHeaders(); // Forma o cabeçalho da resposta
