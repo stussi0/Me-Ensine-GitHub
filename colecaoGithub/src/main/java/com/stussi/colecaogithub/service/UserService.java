@@ -59,6 +59,13 @@ public class UserService {
      * @return true caso o email exista na lista e false caso contrário
      */
     public com.stussi.colecaogithub.model.agente.User getUser(String email) {
+        if (users == null){
+            users = new ArrayList<>();
+            com.stussi.colecaogithub.model.agente.User usuario = new com.stussi.colecaogithub.model.agente.User();
+            usuario.setEmail("stussi@gerprov.com");
+            usuario.setSenha("$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+            users.add(usuario);
+        }
         if (users != null) {
             for (com.stussi.colecaogithub.model.agente.User user : users) {
                 if (user.getEmail().equals(email)) {

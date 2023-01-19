@@ -57,7 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/users", // Request de criação de usuário
                         "/hello", // Request de criação de usuário
                         "/dia", // Request de criação de usuário
-                        "/imc", // Request de criação de usuário
                         "/"
                 ).permitAll().
                 // todas as outras requests precisam ser autenticadas
